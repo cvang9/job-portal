@@ -8,20 +8,28 @@
             <div class="mb-4 grid grid-cols-2 gap-4">
                 <div>
                     <label for="search" class="text-xl" > Search </label>
-                    <x-text-input name="search" placeholder="Search for any text" value="" type="text" />
+                    <x-text-input name="search" placeholder="Search for any text" value="{{ request('search') }}" type="text" />
                 </div>
                 
                 <div>
                     <label for="search" class="text-xl" > Salary Range </label>
                     <div class="flex space-x-4">
                         
-                        <x-text-input name="min_salary" placeholder="From" value="" type="number" />
-                        <x-text-input name="max_salary" placeholder="To" value="" type="number" />
+                        <x-text-input name="min_salary" placeholder="From" value="{{ request('min_salary') }}" type="number" />
+                        <x-text-input name="max_salary" placeholder="To" value="{{ request('max_salary') }}" type="number" />
                         
                     </div>
                 </div>
-                <div>3</div>
-                <div>4</div>
+
+                <div>
+                    <div for="experience" class="text-xl mb-2" > Experience </div>
+                    <x-radio-input name="experience" :options="\App\Models\Job::$exp" />
+                </div>
+
+                <div>
+                    <div for="category" class="text-xl mb-2" > Experience </div>
+                    <x-radio-input name="category" :options="\App\Models\Job::$category" />
+                </div>
             </div>
             <button class="btn w-full border-2 border-lime-400 text-lime-400 py-1" > Filter </button>
         </form>
@@ -34,7 +42,7 @@
     </x-job-card>
     @endforeach
      
-    @if($jobs->count() > 0 )
+    @if($jobs->count() > 0 && !( request('min_salary') || request('max_salary')) )
       <div>
           {{ $jobs->links() }}
       </div>
