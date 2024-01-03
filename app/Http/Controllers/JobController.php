@@ -15,18 +15,21 @@ class JobController extends Controller
         
         $job = Job::query();
 
+        $job->when( request('search'), function( $query ){
+
+            $query->where('title', 'like', '%'.request('search').'%' )
+                  ->orWhere( 'description', 'like', '%'.request('search').'%' )
+                  ->orWhereHas( 'employer', function( $query) {
+                    $query->where('company_name', 'like', '%'.request('search').'%' );
+                  });
+        });
+
         $job->when( request('experience'), function( $query ){
             $query->where('experience', '=', request('experience'));
         });
 
         $job->when( request('category'), function( $query ){
             $query->where('category', '=', request('category') );
-        });
-
-        $job->when( request('search'), function( $query ){
-
-            $query->where('title', 'like', '%'.request('search').'%' )
-                  ->orWhere( 'description', 'like', '%'.request('search').'%' );
         });
 
         if( request('min_salary') && request('max_salary') )
@@ -45,10 +48,10 @@ class JobController extends Controller
         
 
         if( request('min_salary') || request('max_salary') ) {
-            return view('job.index', [ 'jobs' => $job->get() ] );
+            return view('job.index', [ 'jobs' => $job->with('employer')->get() ] );
         }
         else {
-            return view('job.index', [ 'jobs' => $job->paginate() ] );
+            return view('job.index', [ 'jobs' => $job->with('employer')->paginate() ] );
         }
     }
 
@@ -73,7 +76,7 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        return view('job.show', ['job' => $job] );
+        return view('job.show', ['job' => $job->load('employer.jobs')] );
     }
 
     /**
