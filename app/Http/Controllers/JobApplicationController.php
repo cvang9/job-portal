@@ -17,11 +17,20 @@ class JobApplicationController extends Controller
     public function store(Request $request, Job $job)
     {
         $this->authorize('apply', $job );
+
+        $validated = $request->validate([
+            'expected_salary' => 'required|min:1|max:1000000',
+            'cv' => 'required|file|mimes:pdf|max:2048'
+        ]);
+
+        $file = $request->file('cv');
+        $path = $file->store('cvs', 'private' );
+
+
         $job->jobApplications()->create([
             'user_id' => auth()->user()->id,
-            ...$request->validate([
-                'expected_salary' => 'required|min:1|max:1000000'
-            ])
+            'expected_salary' => $validated['expected_salary'],
+            'cv_path' => $path
         ]);
 
         return redirect()->route('jobs.show', ['job' => $job] )->with('success', 'Job Application Successfully Submitted');
