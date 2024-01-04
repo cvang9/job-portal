@@ -19,7 +19,6 @@
         <div>
             {{ $slot }}
         </div>
-
     </div>
 
 </x-card>

@@ -4,6 +4,13 @@
     <x-job-card :job="$job" >
         <div class="description mb-4">
             <p class=" text-sm text-slate-300"> {!! nl2br( e($job->description)) !!}</p>
+
+            @can('apply', $job)
+            <button class="button mt-4 border-2 border-purple-500 text-purple-500 px-2 py-1"> <a href="{{ route('jobs.application.create', ['job' => $job]) }}" > Apply now </a> </button>
+            @else
+            <p class="text-center text-red-500 text-xl mt-3"> You had already applied for this job</p> 
+            @endcan
+            
         </div>
     </x-job-card>
 

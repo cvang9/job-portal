@@ -19,6 +19,9 @@
                 <p> Hello, {{ auth()->user()->name }} <p>
             </div>
             <div>
+                <a href="{{ route('my-job-applications.index') }}" class="text-sm ms-3 mt-3 me-1 p-1 border-2 border-blue-400 text-blue-400" > My Applications </a>
+            </div>
+            <div>
                 <form action="{{ route('auth.destroy')}}" method="POST" >
                     @csrf
                     @method('DELETE')
@@ -36,6 +39,21 @@
         </div>
     </div>
 </nav>
+
+@if (session('success'))
+    <div role="alert"
+      class="my-8 rounded-md border-l-4 border-green-300 bg-green-100 p-4 text-green-700 opacity-75">
+      <p class="font-bold">Success!</p>
+      <p>{{ session('success') }}</p>
+    </div>
+  @endif
+  @if (session('error'))
+    <div role="alert"
+      class="my-8 rounded-md border-l-4 border-red-300 bg-red-100 p-4 text-red-700 opacity-75">
+      <p class="font-bold">Error!</p>
+      <p>{{ session('error') }}</p>
+    </div>
+  @endif
 
     <div> 
         <br/>
