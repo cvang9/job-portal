@@ -9,7 +9,16 @@
                 @csrf
 
                 <x-text-input type="number" name="expected_salary" placeholder="Your Expected Salary" value="" />
-                <input type="file" name="cv" />
+                @error('expected_salary')
+                   <p class="text-sm text-red-500"> {{ $message }} </p>
+                @enderror
+                <div class="mt-4">
+                    <label for="cv" > Upload your resume:  </label>
+                    <input type="file" name="cv" />
+                    @error('cv')
+                   <p class="text-sm text-red-500"> {{ $message }} </p>
+                @enderror
+                </div>
                 <button style="margin-left: 48%" type="submit" class="mt-4 border border-blue-500 py-1 px-4 text-blue-500 "> Apply </button>
             </form>
         </div>

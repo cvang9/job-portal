@@ -25,7 +25,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             return redirect()->intended('/');
         } else {
-            return redirect()->back()
+            return redirect()->route('jobs.index')
                 ->with('error', 'Invalid credentials');
         }
     }
