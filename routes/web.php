@@ -39,6 +39,6 @@ Route::middleware('auth:sanctum')->group( function() {
 
     Route::resource('employer', EmployerController::class )->only(['create', 'store']);
 
-    Route::resource('my-jobs', MyJobController::class );
+    Route::middleware('employer')->resource('my-jobs', MyJobController::class );
 
 });

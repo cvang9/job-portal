@@ -19,8 +19,12 @@ class EmployerController extends Controller
 
     public function store(Request $request)
     {
-        auth()->user()->employer()->create([
+        $validated = $request->validate([
             'company_name' => 'required|min:1'
+        ]);
+        
+        auth()->user()->employer()->create([
+            'company_name' => $validated['company_name']
         ]);
 
         return redirect()->route('jobs.index')->with('success', 'Successfully created employer');

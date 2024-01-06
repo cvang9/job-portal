@@ -1,7 +1,10 @@
+
+@if ($flag )    
 <div class="flex items-center mb-1">
     <input name="{{ $name }}" type="radio" value="" @checked( null === request($name )) /> 
     <span class="ml-2" > All</span> <br/>
 </div>
+@endif
 
 @foreach ($options as $exp)
 

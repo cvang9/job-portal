@@ -13,7 +13,7 @@
    <nav class="auth text-2xl text-white">
     <div class="flex justify-between">
         <div> Welcome home
-             <a href="{{ route('my-job-applications.index') }}" class="text-sm ms-3 mt-3 me-1 p-1 border-2 border-blue-400 text-blue-400" > My Applications </a>
+             {{-- <a href="{{ route('my-job-applications.index') }}" class="text-sm ms-3 mt-3 me-1 p-1 border-2 border-blue-400 text-blue-400" > My Applications </a> --}}
         </div>
         <div class="flex align-items">
             @if( auth()->user() != null )
