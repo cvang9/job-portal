@@ -21,7 +21,7 @@ use App\Http\Controllers\MyJobController;
 
 Route::get('', fn() => to_route('jobs.index'));
 
-Route::resource('jobs', JobController::class)->only(['index', 'show']);
+Route::middleware('throttle:three-visits')->resource('jobs', JobController::class)->only(['index', 'show']);
 
 Route::get('login', fn() => to_route('auth.create'))->name('login');
 
