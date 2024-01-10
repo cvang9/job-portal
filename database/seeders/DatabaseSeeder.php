@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
             'password' => 'huehuehue'
         ]);
         
-        User::factory(100)->create();
+        User::factory(10)->create();
 
         $users = User::all()->shuffle();
 
-        for ( $i=1; $i <= 20; $i++ ) { 
+        for ( $i=1; $i <= 5; $i++ ) { 
             
             Employer::factory()->create([
                 'user_id' => $users->last()->id
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
 
         $employers = Employer::all();
 
-        for ($i=1; $i <= 100; $i++) { 
+        for ($i=1; $i <= 5; $i++) { 
             
             Job::factory()->create([
                 'employer_id' => $employers->random(1)->first()->id
